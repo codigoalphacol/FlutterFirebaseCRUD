@@ -1,6 +1,13 @@
 # flutter_app_products
 
-A new Flutter application.
+Creacion de un CRUD DE Productos, podemos hacer todas las cinco funciones del crud como son
+crear productos, listar, editar o actualizar, eliminar,
+
+Todo el codigo explicado, incluyendo consola Firebase 
+
+los inivitamos para que se suscriban en el canal de Youtube Codigo Alpha
+
+https://www.youtube.com/watch?v=uzkpDEG_4R4
 
 ## Getting Started
 
