@@ -5,6 +5,9 @@ crear productos, listar, editar o actualizar, eliminar,
 
 Todo el codigo explicado, incluyendo consola Firebase 
 
+Marzo 2/2019 - Actualizamos  el boton de eliminar, con una AlertDialog, 
+que nos pregunte si estamos seguros de eliminar el registro
+
 los inivitamos para que se suscriban en el canal de Youtube Codigo Alpha
 
 https://www.youtube.com/watch?v=uzkpDEG_4R4
