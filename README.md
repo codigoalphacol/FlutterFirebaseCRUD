@@ -3,9 +3,7 @@
 ![Codigo Alpha Flutter]
 ![alt text](https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/crudfirebase.png) 
 
-![alt text](https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto1.jpg) 
-
-![alt text](https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto2.jpg) 
+<p align="center"> <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto1.jpg" width="350"/> <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto2.jpg" width="350"/> </p> 
 
 ![alt text](https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto3.jpg) 
 
