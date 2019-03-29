@@ -4,8 +4,8 @@
 ![alt text](https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/crudfirebase.png) 
 
 <p align="center"> <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto1.jpg" width="350"/> <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto2.jpg" width="350"/> </p> 
+<img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto3.jpg" width="350"/> </p> 
 
-![alt text](https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto3.jpg) 
 
 Creacion de un CRUD DE Productos, podemos hacer todas las cinco funciones del crud como son
 crear productos, listar, editar o actualizar, eliminar,
