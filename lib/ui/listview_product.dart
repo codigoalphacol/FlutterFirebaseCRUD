@@ -13,25 +13,22 @@ class ListViewProduct extends StatefulWidget {
 final productReference = FirebaseDatabase.instance.reference().child('product');
 
 class _ListViewProductState extends State<ListViewProduct> {
-
   List<Product> items;
   StreamSubscription<Event> _onProductAddedSubscription;
   StreamSubscription<Event> _onProductChangedSubscription;
 
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     items = new List();
-    _onProductAddedSubscription = productReference.onChildAdded.listen(_onProductAdded);
-    _onProductChangedSubscription = productReference.onChildChanged.listen(_onProductUpdate);
-
+    _onProductAddedSubscription =
+        productReference.onChildAdded.listen(_onProductAdded);
+    _onProductChangedSubscription =
+        productReference.onChildChanged.listen(_onProductUpdate);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _onProductAddedSubscription.cancel();
     _onProductChangedSubscription.cancel();
@@ -40,76 +37,97 @@ class _ListViewProductState extends State<ListViewProduct> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Product DB',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Product List'),
+          title: Text('Products List'),
           centerTitle: true,
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Colors.pinkAccent,          
         ),
         body: Center(
           child: ListView.builder(
               itemCount: items.length,
-              padding: EdgeInsets.only(top: 12.0),
-              itemBuilder: (context, position){
+              padding: EdgeInsets.only(top: 3.0),
+              itemBuilder: (context, position) {
                 return Column(
                   children: <Widget>[
-                    Divider(height: 7.0,),
-                    Row(
-                      children: <Widget>[
-                        Expanded(child: ListTile(title: Text('${items[position].name}',
-                          style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 21.0,
-                          ),
-                        ),
-                            subtitle:
-                            Text('${items[position].description}',
-                              style: TextStyle(
-                                color: Colors.blueGrey,
-                                fontSize: 21.0,
-                              ),
+                    Divider(
+                      height: 1.0,
+                    ),                    
+                    Container(
+                      padding: new EdgeInsets.all(3.0),
+                      child: Card(                      
+                        child: Row(
+                          children: <Widget>[
+                            //nuevo imagen
+                             new Container( 
+                              padding: new EdgeInsets.all(5.0),                          
+                              child: '${items[position].productImage}' == ''
+                                  ? Text('No image')
+                                  : Image.network(
+                                      '${items[position].productImage}' +
+                                          '?alt=media',
+                                          fit: BoxFit.fill,
+                                      height: 57.0,
+                                      width: 57.0,
+                                    ),
                             ),
-                            leading: Column(
-                              children: <Widget>[
-                                CircleAvatar(
-                                  backgroundColor: Colors.amberAccent,
-                                  radius: 17.0,
-                                  child: Text('${position + 1}',
+                            Expanded(
+                              child: ListTile(
+                                  title: Text(
+                                    '${items[position].name}',
+                                    style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontSize: 21.0,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    '${items[position].description}',
                                     style: TextStyle(
                                       color: Colors.blueGrey,
                                       fontSize: 21.0,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  onTap: () => _navigateToProductInformation(
+                                      context, items[position])),
                             ),
-                            onTap: () => _navigateToProductInformation(context, items[position])),),
-                        IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red,),
-                              onPressed: ()=>_showDialog(context, position)),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () => _showDialog(context, position),
+                                ),
+                                
                             //onPressed: () => _deleteProduct(context, items[position],position)),
-                        IconButton(
-                            icon: Icon(Icons.remove_red_eye, color: Colors.blueAccent,),
-                            onPressed: () => _navigateToProduct(context, items[position])),
-                      ],
+                            IconButton(
+                                icon: Icon(
+                                  Icons.remove_red_eye,
+                                  color: Colors.blueAccent,
+                                ),
+                                onPressed: () =>
+                                    _navigateToProduct(context, items[position])),
+                          ],
+                        ),
+                        color: Colors.white,
+                      ),
                     ),
-
                   ],
                 );
-              }
-          ),
+              }),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add, color: Colors.white,),
-          backgroundColor: Colors.deepOrangeAccent,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.pinkAccent,
           onPressed: () => _createNewProduct(context),
         ),
       ),
     );
   }
 
-
+  //nuevo para que pregunte antes de eliminar un registro
   void _showDialog(context, position) {
     showDialog(
       context: context,
@@ -119,11 +137,16 @@ class _ListViewProductState extends State<ListViewProduct> {
           content: Text('Are you sure you want to delete this item?'),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.delete, color: Colors.purple,),
-                onPressed: () => _deleteProduct(context, items[position],position)),
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.purple,
+                ),
+                onPressed: () =>
+                  _deleteProduct(context, items[position], position,),                                        
+                    ),                   
             new FlatButton(
               child: Text('Cancel'),
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
@@ -133,47 +156,54 @@ class _ListViewProductState extends State<ListViewProduct> {
     );
   }
 
-
-
-  void _onProductAdded(Event event){
+  void _onProductAdded(Event event) {
     setState(() {
       items.add(new Product.fromSnapShot(event.snapshot));
     });
   }
 
-  void _onProductUpdate(Event event){
-    var oldProductValue = items.singleWhere((product) => product.id == event.snapshot.key);
+  void _onProductUpdate(Event event) {
+    var oldProductValue =
+        items.singleWhere((product) => product.id == event.snapshot.key);
     setState(() {
-      items[items.indexOf(oldProductValue)] = new Product.fromSnapShot(event.snapshot);
+      items[items.indexOf(oldProductValue)] =
+          new Product.fromSnapShot(event.snapshot);
     });
   }
 
-  void _deleteProduct(BuildContext context, Product product,int position)async{
-    await productReference.child(product.id).remove().then((_){
+  void _deleteProduct(
+      BuildContext context, Product product, int position) async {
+    await productReference.child(product.id).remove().then((_) {
       setState(() {
         items.removeAt(position);
+        Navigator.of(context).pop();
       });
     });
-
   }
 
-  void _navigateToProductInformation(BuildContext context, Product product)async{
-    await Navigator.push(context,
+  void _navigateToProductInformation(
+      BuildContext context, Product product) async {
+    await Navigator.push(
+      context,
       MaterialPageRoute(builder: (context) => ProductScreen(product)),
     );
   }
 
-  void _navigateToProduct(BuildContext context, Product product)async{
-    await Navigator.push(context,
+  void _navigateToProduct(BuildContext context, Product product) async {
+    await Navigator.push(
+      context,
       MaterialPageRoute(builder: (context) => ProductInformation(product)),
     );
   }
 
-  void _createNewProduct(BuildContext context)async{
-    await Navigator.push(context,
-      MaterialPageRoute(builder: (context) => ProductScreen(Product(null,'','','','',''))),
+  void _createNewProduct(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+              ProductScreen(Product(null, '', '', '', '', '', ''))),
     );
   }
 
-
+  
 }
