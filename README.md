@@ -5,7 +5,21 @@
 
 <p align="center"> <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto1.jpg" width="300"/> <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto2.jpg" width="300"/>
 <img src="https://github.com/codigoalphacol/FlutterFirebaseCRUD/blob/master/assets/images/producto3.jpg" width="300"/> </p> 
+Note:
+check
+//steps for implement imagen
+in the Storage rules
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write;
+    }
+  }
+}
 
+verify in Database realtime Database up link image
+ProductImage: "https://firebasestorage.googleapis.com/v0/b/fl...
+see line 195 file product_screen.dart change for each project
 
 Creacion de un CRUD DE Productos, podemos hacer todas las cinco funciones del crud como son
 crear productos, listar, editar o actualizar, eliminar,
